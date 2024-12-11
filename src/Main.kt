@@ -4,18 +4,8 @@ fun main() {
     list()
     println()
     set()
-    val eng = listOf(
-        "Hello",
-        "Half"
-    )
-    val rus = listOf(
-        "Привет",
-        "Здравствуй",
-        "Половина",
-        "Часть"
-    )
     println()
-
+    map()
 }
 
 fun list(){
@@ -44,7 +34,23 @@ fun set(){
     println("Всего учеников: $total")
 }
 
-fun map(eng: List<String>, rus: List<String>){
-    val words = mutableMapOf<String, String>()
+fun map(){
+    val input = listOf(
+        "яблоко apple",
+        "груша pear",
+        "виноград grape",
+        "груша apple",
+        "дерево tree"
+    )
 
+    val engToRusMap = mutableMapOf<String, MutableSet<String>>()
+
+    for (line in input) {
+        val (rus, eng) = line.split(" ")
+        engToRusMap.computeIfAbsent(eng) { mutableSetOf() }.add(rus)
+    }
+
+    for ((eng, rusWords) in engToRusMap) {
+        println("$eng = ${rusWords.joinToString(", ")}")
+    }
 }
